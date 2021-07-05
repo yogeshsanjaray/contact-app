@@ -12,7 +12,7 @@ exports.createContact = async function (req, res) {
 		res.json(contact);
 	} catch (err) {
 		console.log(err);
-		res.json({ error: "Cant save!!" });
+		res.status(500).send({ error: "Cant save!!" });
 	}
 };
 
@@ -21,7 +21,7 @@ exports.getContacts = async function (req, res) {
 		const contact = await Contact.find();
 		res.json(contact);
 	} catch (err) {
-		res.json("Error " + err);
+		res.status(500).json({ error: err.message });
 	}
 };
 
@@ -30,7 +30,7 @@ exports.getContact = async function (req, res) {
 		const contact = await Contact.findById(req.params.id);
 		res.json(contact);
 	} catch (err) {
-		res.json("Error " + err.toString());
+		res.status(500).json({ error: err.message });
 	}
 };
 
@@ -45,7 +45,7 @@ exports.updateContact = async function (req, res) {
 			msg: req.params.id + " successfully update",
 		});
 	} catch (err) {
-		res.json("Error " + err.toString());
+		res.status(500).json({ error: err.message });
 	}
 };
 
@@ -57,6 +57,6 @@ exports.deleteContact = async function (req, res) {
 			msg: req.params.id + " successfully deleted",
 		});
 	} catch (err) {
-		res.json("Error " + err.toString());
+		res.status(500).json({ error: err.message });
 	}
 };
